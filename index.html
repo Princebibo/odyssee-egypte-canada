@@ -79,6 +79,12 @@ nav a:hover::after{transform:scaleX(1)}
 /* La vidéo n'apparaît qu'une fois qu'elle joue vraiment (sinon on verrait sa 1re image noire). */
 .hero video{z-index:2;opacity:0;transition:opacity .9s ease}
 .hero video.playing{opacity:1}
+/* Sur grand écran, la vidéo verticale n'est plus étirée : elle garde sa taille
+   native (donc nette) et la bannière floutée remplit le reste du cadre. */
+@media (min-width:900px){
+  .hero video{object-fit:contain;object-position:50% 50%}
+  .hero .poster{filter:blur(7px) saturate(1.15) brightness(.85);transform:scale(1.08)}
+}
 /* CSS fallback scene, visible until a video/poster loads on top */
 .scene{position:absolute;inset:0;
   background:
@@ -161,6 +167,14 @@ html[lang="ar"] .stat b{font-family:'Noto Kufi Arabic',serif}
 html[lang="ar"] .strip blockquote{font-family:'Noto Kufi Arabic',serif;font-style:normal;font-size:1.4rem}
 .strip cite{display:block;margin-top:1.3rem;font-family:Inter,sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
 
+/* lecteur vidéo : cadre doré, jamais d'étirement — la vidéo garde son format natif */
+.player{margin:0;display:flex;justify-content:center}
+.player video{
+  height:min(78vh,680px);width:auto;max-width:100%;
+  border-radius:16px;border:1px solid rgba(217,164,65,.28);
+  background:#05070f;box-shadow:0 30px 70px rgba(0,0,0,.55)
+}
+
 /* gallery */
 .gal{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 .gal .tile{aspect-ratio:4/3;border-radius:14px;overflow:hidden;position:relative;border:1px solid rgba(217,164,65,.16)}
@@ -215,6 +229,7 @@ footer p{font-size:.78rem;color:var(--muted);margin:.3rem 0}
   </a>
   <nav id="nav">
     <a href="#about" data-i18n="navAbout">À propos</a>
+    <a href="#film" data-i18n="navFilm">Vidéo</a>
     <a href="#experience" data-i18n="navExp">Le voyage</a>
     <a href="#program" data-i18n="navProg">Programmation</a>
     <a href="#gallery" data-i18n="navGal">Galerie</a>
@@ -248,6 +263,21 @@ footer p{font-size:.78rem;color:var(--muted);margin:.3rem 0}
   </div>
   <a class="scroll" href="#about" aria-label="Scroll">⌄</a>
 </div>
+
+<!-- ================= VIDÉO ================= -->
+<section id="film">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow" data-i18n="filmEyebrow">En images</p>
+      <h2 data-i18n="filmTitle">Le festival en vidéo</h2>
+      <p data-i18n="filmP">Quelques instants captés sur scène — la musique, la lumière et le public d'Odyssey en Égypte au Canada.</p>
+      <div class="rule"></div>
+    </div>
+    <figure class="player rv">
+      <video id="filmVideo" controls playsinline preload="metadata"></video>
+    </figure>
+  </div>
+</section>
 
 <!-- ================= À PROPOS ================= -->
 <section id="about">
@@ -387,11 +417,13 @@ const I18N = {
   ar:{
     _dir:"rtl",_title:"أوديسي في مصر في كندا — مصر عبر الزمن",
     brand:"أوديسي", brandSub:"في مصر في كندا",
-    navAbout:"من نحن", navExp:"الرحلة", navProg:"البرنامج", navGal:"معرض الصور", navContact:"اتصل بنا",
+    navAbout:"من نحن", navFilm:"فيديو", navExp:"الرحلة", navProg:"البرنامج", navGal:"معرض الصور", navContact:"اتصل بنا",
     heroEyebrow:"مهرجان مصغّر — كندا",
     heroTitle:"مصر عبر الزمن",
     heroSub:"رحلة ثقافية عبر التاريخ والفن والتقاليد.",
     ctaProgram:"اكتشف المهرجان", ctaFollow:"تابعنا",
+    filmEyebrow:"بالصورة", filmTitle:"المهرجان بالفيديو",
+    filmP:"لحظات من على المسرح — الموسيقى والضوء وجمهور «أوديسي في مصر في كندا».",
     aboutEyebrow:"من نحن",
     aboutTitle:"أوديسة مصرية في قلب كندا",
     aboutP1:"«أوديسة مصر في كندا» مهرجان مصغّر مكرّس بالكامل للقاء بين الحضارة المصرية والجمهور الكندي. على مدى أيام المهرجان تحلّ مصر — من عصر الفراعنة إلى الإبداع المعاصر — ضيفةً على كندا.",
@@ -423,11 +455,13 @@ const I18N = {
   en:{
     _dir:"ltr",_title:"Odyssey en Égypte au Canada — Egypt Beyond Time",
     brand:"Odyssey", brandSub:"Egypt in Canada",
-    navAbout:"About", navExp:"The Journey", navProg:"Programme", navGal:"Gallery", navContact:"Contact",
+    navAbout:"About", navFilm:"Video", navExp:"The Journey", navProg:"Programme", navGal:"Gallery", navContact:"Contact",
     heroEyebrow:"Mini Festival — Canada",
     heroTitle:"Egypt Beyond Time",
     heroSub:"A cultural journey through history, art and tradition.",
     ctaProgram:"Discover the festival", ctaFollow:"Follow us",
+    filmEyebrow:"In pictures", filmTitle:"The festival on film",
+    filmP:"A few moments caught on stage — the music, the light and the audience of Odyssey en Égypte au Canada.",
     aboutEyebrow:"Who we are",
     aboutTitle:"An Egyptian odyssey in the heart of Canada",
     aboutP1:"Odyssey en Égypte au Canada is a mini-festival devoted entirely to the meeting of Egyptian civilisation and Canadian audiences. For the length of the event, Egypt — from the age of the pharaohs to contemporary creation — comes to Canada.",
@@ -534,6 +568,24 @@ const HERO_CLIPS = ["assets/hero.mp4","assets/hero-2.mp4","assets/hero-3.mp4","a
     addEventListener("scroll", kick, {passive:true});
     document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) kick(); });
   });
+})();
+
+/* ---------------- section vidéo ----------------
+   Cherche assets/video.mp4 (la seconde vidéo). À défaut, reprend le clip du hero.
+   Si aucun fichier n'existe, la section entière disparaît. */
+(function(){
+  const f = document.getElementById("filmVideo");
+  if(!f) return;
+  const tryList = ["assets/video.mp4","assets/video-2.mp4","assets/hero.mp4"];
+
+  (function next(i){
+    if(i >= tryList.length){ document.getElementById("film").remove(); return; }
+    const t = document.createElement("video");
+    t.preload = "metadata"; t.muted = true;
+    t.onloadedmetadata = ()=>{ f.src = tryList[i]; };
+    t.onerror = ()=>next(i + 1);
+    t.src = tryList[i];
+  })(0);
 })();
 
 /* ---------------- gallery placeholders ---------------- */

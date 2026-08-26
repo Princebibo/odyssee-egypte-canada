@@ -14,7 +14,8 @@ chargement, donc pour modifier un texte français il suffit de modifier le HTML.
 |---|---|---|
 | `hero.mp4` | vidéo de fond du hero | MP4 H.264, muet, < 8 Mo |
 | `hero-2.mp4`, `hero-3.mp4`, `hero-4.mp4` | clips suivants — ils s'enchaînent puis repartent au premier, en boucle infinie | idem, optionnels |
-| `hero-poster.jpg` | image affichée avant/à défaut de la vidéo | 1920 × 1080 |
+| `hero-poster.jpg` | image de fond derrière la vidéo du hero | **1920 × 1080** (la version actuelle ne fait que 960 × 479 : à remplacer) |
+| `video.mp4` | la vidéo de la section « Le festival en vidéo » | MP4 H.264, format libre |
 | `logo.png` | logo rond du festival (en-tête + hero + favicon) | PNG carré, 1000 × 1000 |
 | `gallery/1.jpg` … `6.jpg` | galerie | ~1200 × 900 |
 | `partners/acmc.png`, `partners/mascan.png` | logos partenaires | PNG fond transparent |
