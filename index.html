@@ -74,17 +74,8 @@ nav a:hover::after{transform:scaleX(1)}
 .hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden}
 .hero .bg{position:absolute;inset:0;z-index:0}
 .hero video,.hero .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
-/* La bannière reste derrière la vidéo : le fond n'est jamais noir. */
-.hero .poster{z-index:1}
-/* La vidéo n'apparaît qu'une fois qu'elle joue vraiment (sinon on verrait sa 1re image noire). */
-.hero video{z-index:2;opacity:0;transition:opacity .9s ease}
-.hero video.playing{opacity:1}
-/* Sur grand écran, la vidéo verticale n'est plus étirée : elle garde sa taille
-   native (donc nette) et la bannière floutée remplit le reste du cadre. */
-@media (min-width:900px){
-  .hero video{object-fit:contain;object-position:50% 50%}
-  .hero .poster{filter:blur(7px) saturate(1.15) brightness(.85);transform:scale(1.08)}
-}
+/* La bannière est le fond du hero. La vidéo, elle, vit dans la section juste en dessous. */
+.hero .bg img.poster{z-index:1;object-position:50% 75%}  /* on cadre sur les pyramides : le titre de la bannière ne double pas le H1 */
 /* CSS fallback scene, visible until a video/poster loads on top */
 .scene{position:absolute;inset:0;
   background:
@@ -105,7 +96,7 @@ nav a:hover::after{transform:scaleX(1)}
     conic-gradient(from 200deg at 30% 100%,#3d2f22 0 30deg,transparent 30deg),
     conic-gradient(from 200deg at 62% 100%,#4a3826 0 26deg,transparent 26deg)}
 .hero .veil{position:absolute;inset:0;z-index:1;
-  background:linear-gradient(180deg,rgba(6,10,28,.72) 0%,rgba(6,10,28,.58) 35%,rgba(6,10,28,.92) 100%)}
+  background:linear-gradient(180deg,rgba(6,10,28,.66) 0%,rgba(6,10,28,.42) 40%,rgba(6,10,28,.9) 100%)}
 .hero .inner{position:relative;z-index:2;padding:8rem 1.2rem 6rem;max-width:900px}
 .hero .seal{width:clamp(120px,20vw,180px);height:clamp(120px,20vw,180px);margin:0 auto 1.8rem;border-radius:50%;overflow:hidden;
   box-shadow:0 0 0 1px rgba(217,164,65,.55),0 0 60px rgba(217,164,65,.28)}
@@ -248,7 +239,6 @@ footer p{font-size:.78rem;color:var(--muted);margin:.3rem 0}
   <div class="bg">
     <div class="scene"></div>
     <img class="poster" src="assets/hero-poster.jpg" alt="" onerror="this.remove()">
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg"></video>
   </div>
   <div class="veil"></div>
   <div class="inner">
@@ -274,7 +264,7 @@ footer p{font-size:.78rem;color:var(--muted);margin:.3rem 0}
       <div class="rule"></div>
     </div>
     <figure class="player rv">
-      <video id="filmVideo" controls playsinline preload="metadata"></video>
+      <video id="filmVideo" controls autoplay muted loop playsinline preload="metadata"></video>
     </figure>
   </div>
 </section>
@@ -520,55 +510,6 @@ try{
   const saved = localStorage.getItem("odyssee-lang");
   if(saved && saved !== "fr") setLang(saved);
 }catch(e){}
-
-/* ---------------- hero video ----------------
-   Playlist : hero.mp4, puis hero-2.mp4, hero-3.mp4… tant que le fichier existe.
-   Les clips s'enchaînent puis reprennent au premier — boucle infinie.
-   Une seule vidéo présente ? elle boucle sur elle-même. Aucune ? la scène CSS reste. */
-const HERO_CLIPS = ["assets/hero.mp4","assets/hero-2.mp4","assets/hero-3.mp4","assets/hero-4.mp4"];
-
-(function(){
-  const v = document.getElementById("heroVideo");
-  if(!v) return;
-
-  /* On ne garde que les fichiers réellement présents. */
-  const exists = src => new Promise(res=>{
-    const t = document.createElement("video");
-    t.preload = "metadata"; t.muted = true;
-    t.onloadedmetadata = ()=>res(src);
-    t.onerror = ()=>res(null);
-    t.src = src;
-  });
-
-  Promise.all(HERO_CLIPS.map(exists)).then(found=>{
-    const clips = found.filter(Boolean);
-    if(!clips.length){ v.remove(); return; }
-
-    let i = 0;
-    v.loop = clips.length === 1;          /* une seule vidéo : boucle native */
-    v.src = clips[0];
-
-    if(clips.length > 1){
-      v.addEventListener("ended", ()=>{
-        i = (i + 1) % clips.length;       /* revient au premier clip : sans fin */
-        v.src = clips[i];
-        v.play().catch(()=>{});
-      });
-    }
-
-    /* On ne révèle la vidéo qu'au moment où elle joue réellement. */
-    v.addEventListener("playing", ()=>v.classList.add("playing"));
-
-    /* L'autoplay peut être refusé (batterie, onglet caché, réglage du navigateur).
-       On relance à la première occasion : retour sur l'onglet, scroll ou tap. */
-    const kick = ()=>{ v.muted = true; v.play().catch(()=>{}); };
-    kick();
-    addEventListener("pointerdown", kick, {passive:true});
-    addEventListener("touchstart", kick, {passive:true});
-    addEventListener("scroll", kick, {passive:true});
-    document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) kick(); });
-  });
-})();
 
 /* ---------------- section vidéo ----------------
    Cherche assets/video.mp4 (la seconde vidéo). À défaut, reprend le clip du hero.
