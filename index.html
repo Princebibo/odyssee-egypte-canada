@@ -227,9 +227,7 @@ footer p{font-size:.78rem;color:var(--muted);margin:.3rem 0}
 <div class="hero" id="top">
   <div class="bg">
     <div class="scene"></div>
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" hidden>
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video>
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" hidden></video>
   </div>
   <div class="veil"></div>
   <div class="inner">
@@ -483,17 +481,49 @@ try{
   if(saved && saved !== "fr") setLang(saved);
 }catch(e){}
 
-/* ---------------- hero video: only show it if the file exists ---------------- */
+/* ---------------- hero video ----------------
+   Playlist : hero.mp4, puis hero-2.mp4, hero-3.mp4… tant que le fichier existe.
+   Les clips s'enchaînent puis reprennent au premier — boucle infinie.
+   Une seule vidéo présente ? elle boucle sur elle-même. Aucune ? la scène CSS reste. */
+const HERO_CLIPS = ["assets/hero.mp4","assets/hero-2.mp4","assets/hero-3.mp4","assets/hero-4.mp4"];
+
 (function(){
   const v = document.getElementById("heroVideo");
   if(!v) return;
-  const show = ()=>{ v.hidden = false; v.play().catch(()=>{}); };
-  v.addEventListener("loadeddata", show);
-  v.addEventListener("error", ()=>v.remove(), true);
-  /* a poster alone is enough to be worth showing */
-  const probe = new Image();
-  probe.onload = ()=>{ v.hidden = false; };
-  probe.src = "assets/hero-poster.jpg";
+
+  /* On ne garde que les fichiers réellement présents. */
+  const exists = src => new Promise(res=>{
+    const t = document.createElement("video");
+    t.preload = "metadata"; t.muted = true;
+    t.onloadedmetadata = ()=>res(src);
+    t.onerror = ()=>res(null);
+    t.src = src;
+  });
+
+  Promise.all(HERO_CLIPS.map(exists)).then(found=>{
+    const clips = found.filter(Boolean);
+    if(!clips.length){ v.remove(); return; }
+
+    let i = 0;
+    v.loop = clips.length === 1;          /* une seule vidéo : boucle native */
+    v.src = clips[0];
+
+    if(clips.length > 1){
+      v.addEventListener("ended", ()=>{
+        i = (i + 1) % clips.length;       /* revient au premier clip : sans fin */
+        v.src = clips[i];
+        v.play().catch(()=>{});
+      });
+    }
+
+    v.addEventListener("loadeddata", ()=>{ v.hidden = false; }, {once:true});
+    /* Si l'autoplay est refusé (économie de batterie), on retente à la 1re interaction. */
+    const kick = ()=>v.play().catch(()=>{});
+    v.play().catch(()=>{
+      addEventListener("pointerdown", kick, {once:true});
+      addEventListener("scroll", kick, {once:true, passive:true});
+    });
+  });
 })();
 
 /* ---------------- gallery placeholders ---------------- */

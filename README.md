@@ -12,7 +12,8 @@ chargement, donc pour modifier un texte français il suffit de modifier le HTML.
 
 | Fichier | Rôle | Format conseillé |
 |---|---|---|
-| `hero.mp4` | vidéo de fond du hero | MP4 H.264, muet, 10–20 s en boucle, < 8 Mo |
+| `hero.mp4` | vidéo de fond du hero | MP4 H.264, muet, < 8 Mo |
+| `hero-2.mp4`, `hero-3.mp4`, `hero-4.mp4` | clips suivants — ils s'enchaînent puis repartent au premier, en boucle infinie | idem, optionnels |
 | `hero-poster.jpg` | image affichée avant/à défaut de la vidéo | 1920 × 1080 |
 | `logo.png` | logo rond du festival (en-tête + hero + favicon) | PNG carré, 1000 × 1000 |
 | `gallery/1.jpg` … `6.jpg` | galerie | ~1200 × 900 |
