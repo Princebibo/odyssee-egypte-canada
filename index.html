@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Odyssée Égypte au Canada — Égypte au-delà du Temps</title>
+<meta name="description" content="Égypte au-delà du Temps — Mini Festival au Canada. Un voyage culturel à travers l'histoire, l'art et les traditions.">
+<meta property="og:title" content="Odyssée Égypte au Canada">
+<meta property="og:description" content="Égypte au-delà du Temps — Mini Festival au Canada.">
+<meta property="og:image" content="assets/hero-poster.jpg">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a1024;
+  --ink-2:#111a38;
+  --sand:#f3e7d0;
+  --gold:#d9a441;
+  --gold-2:#f3d493;
+  --paper:#faf6ee;
+  --muted:#b9c0d4;
+  --maxw:1160px;
+}
+*{box-sizing:border-box}
+img,svg,video{display:block;max-width:100%}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:Inter,system-ui,sans-serif;font-weight:300;line-height:1.75;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3,.brand b,.btn{font-family:Cinzel,'Cormorant Garamond',Georgia,serif;font-weight:700;letter-spacing:.02em;line-height:1.15}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2rem)}
+
+/* ---------- Arabic ---------- */
+html[lang="ar"] body{font-family:'Noto Kufi Arabic',Inter,sans-serif;line-height:2}
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3,html[lang="ar"] .btn,html[lang="ar"] .brand b{font-family:'Noto Kufi Arabic',serif;letter-spacing:0;line-height:1.5}
+html[lang="ar"] .eyebrow{letter-spacing:0}
+html[lang="ar"] .role,html[lang="ar"] .eyebrow{text-transform:none}
+
+/* ---------- header ---------- */
+header{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  display:flex;align-items:center;gap:1rem;
+  padding:.85rem clamp(1.1rem,4vw,2rem);
+  transition:background .35s,backdrop-filter .35s,box-shadow .35s,padding .35s;
+}
+header.solid{background:rgba(10,16,36,.86);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(217,164,65,.22);padding-block:.55rem}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;margin-inline-end:auto}
+.brand .mark{width:46px;height:46px;flex:none;border-radius:50%;overflow:hidden;background:var(--ink-2);
+  box-shadow:0 0 0 1px rgba(217,164,65,.5),0 6px 22px rgba(0,0,0,.45)}
+.brand .mark img{width:100%;height:100%;object-fit:cover}
+.brand b{display:block;font-size:.95rem;color:var(--sand)}
+.brand span{display:block;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+nav{display:flex;gap:1.6rem}
+nav a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--muted);padding-block:.3rem;position:relative}
+nav a::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+nav a:hover{color:var(--sand)}
+nav a:hover::after{transform:scaleX(1)}
+.langs{display:flex;gap:.25rem;margin-inline-start:1.4rem}
+.langs button{
+  background:none;border:1px solid rgba(217,164,65,.35);color:var(--muted);
+  font:inherit;font-size:.68rem;letter-spacing:.1em;padding:.3rem .55rem;border-radius:999px;cursor:pointer;transition:.25s;
+}
+.langs button:hover{color:var(--sand);border-color:var(--gold)}
+.langs button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#1a1206;font-weight:600}
+.burger{display:none;background:none;border:0;color:var(--sand);font-size:1.5rem;cursor:pointer;line-height:1;padding:.2rem .4rem}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden}
+.hero .bg{position:absolute;inset:0;z-index:0}
+.hero video,.hero .bg img{width:100%;height:100%;object-fit:cover}
+/* CSS fallback scene, visible until a video/poster loads on top */
+.scene{position:absolute;inset:0;
+  background:
+    radial-gradient(120% 80% at 50% 100%,#2a2038 0%,transparent 60%),
+    radial-gradient(90% 60% at 20% 15%,rgba(217,164,65,.28),transparent 60%),
+    linear-gradient(180deg,#060a1c 0%,#101a3c 45%,#3a2a3f 100%);
+}
+.scene::before{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(1.4px 1.4px at 20% 30%,rgba(255,255,255,.7),transparent),
+    radial-gradient(1.2px 1.2px at 70% 20%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1.6px 1.6px at 45% 55%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1.1px 1.1px at 85% 45%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1.3px 1.3px at 12% 65%,rgba(255,255,255,.45),transparent);
+  animation:twinkle 6s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.35}to{opacity:1}}
+.scene::after{content:"";position:absolute;inset:auto 0 0 0;height:42%;
+  background:linear-gradient(180deg,transparent,rgba(6,10,28,.9)),
+    conic-gradient(from 200deg at 30% 100%,#3d2f22 0 30deg,transparent 30deg),
+    conic-gradient(from 200deg at 62% 100%,#4a3826 0 26deg,transparent 26deg)}
+.hero .veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(6,10,28,.72) 0%,rgba(6,10,28,.45) 35%,rgba(6,10,28,.92) 100%)}
+.hero .inner{position:relative;z-index:2;padding:8rem 1.2rem 6rem;max-width:900px}
+.hero .seal{width:clamp(120px,20vw,180px);height:clamp(120px,20vw,180px);margin:0 auto 1.8rem;border-radius:50%;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(217,164,65,.55),0 0 60px rgba(217,164,65,.28)}
+.hero .seal img{width:100%;height:100%;object-fit:cover}
+.eyebrow{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin:0 0 1.1rem}
+.hero h1{font-size:clamp(2.3rem,7vw,4.6rem);margin:0 0 .5rem;
+  background:linear-gradient(180deg,#fff8ea 15%,var(--gold-2) 60%,var(--gold) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.15rem,2.6vw,1.7rem);font-style:italic;color:var(--sand);margin:0 auto 2.2rem;max-width:34ch}
+.cta{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:.95rem 1.9rem;border-radius:999px;border:1px solid var(--gold);transition:.3s}
+.btn.solid{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#1a1206}
+.btn.solid:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn.ghost{color:var(--sand)}
+.btn.ghost:hover{background:rgba(217,164,65,.14);transform:translateY(-2px)}
+.scroll{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:2;color:var(--gold);font-size:1.4rem;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+/* ---------- generic sections ---------- */
+section{padding:clamp(4.5rem,10vw,7.5rem) 0;position:relative}
+.alt{background:linear-gradient(180deg,var(--ink-2),var(--ink))}
+.head{text-align:center;max-width:760px;margin:0 auto clamp(2.5rem,5vw,3.8rem)}
+.head h2{font-size:clamp(1.8rem,4.4vw,2.9rem);margin:.2rem 0 1rem;color:var(--sand)}
+.rule{width:82px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.2rem auto 0}
+p{color:#dfe3ee}
+.lead{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,2.2vw,1.35rem);color:#e9e2d3}
+html[lang="ar"] .lead{font-family:'Noto Kufi Arabic',serif;font-size:1.05rem}
+
+.prose{max-width:760px;margin-inline:auto}
+.prose p+p{margin-top:1.15rem}
+
+.grid{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  border:1px solid rgba(217,164,65,.18);border-radius:16px;padding:2rem 1.7rem;transition:.35s;
+}
+.card:hover{transform:translateY(-6px);border-color:rgba(217,164,65,.5);box-shadow:0 22px 50px rgba(0,0,0,.4)}
+.card .ico{font-size:1.8rem;margin-bottom:.9rem}
+.card h3{font-size:1.12rem;color:var(--gold-2);margin:0 0 .6rem}
+.card p{font-size:.95rem;margin:0;color:var(--muted)}
+
+.stats{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));text-align:center;margin-top:3rem}
+.stat b{display:block;font-family:Cinzel,serif;font-size:2.4rem;color:var(--gold-2)}
+.stat span{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+html[lang="ar"] .stat b{font-family:'Noto Kufi Arabic',serif}
+
+/* banner strip */
+.strip{position:relative;padding:clamp(4rem,9vw,6.5rem) 0;text-align:center;overflow:hidden}
+.strip .bg{position:absolute;inset:0;z-index:0}
+.strip .bg img{width:100%;height:100%;object-fit:cover;opacity:.42}
+
+
+
+.strip .veil{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,16,36,.82),rgba(10,16,36,.92))}
+.strip .inner{position:relative;z-index:2}
+.strip blockquote{margin:0 auto;max-width:820px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:clamp(1.4rem,3.6vw,2.2rem);color:var(--sand);line-height:1.5}
+html[lang="ar"] .strip blockquote{font-family:'Noto Kufi Arabic',serif;font-style:normal;font-size:1.4rem}
+.strip cite{display:block;margin-top:1.3rem;font-family:Inter,sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+
+/* gallery */
+.gal{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.gal .tile{aspect-ratio:4/3;border-radius:14px;overflow:hidden;position:relative;border:1px solid rgba(217,164,65,.16)}
+.gal .tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.gal .tile:hover img{transform:scale(1.06)}
+.gal .tile .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:2rem;
+  background:linear-gradient(135deg,rgba(217,164,65,.14),rgba(255,255,255,.03))}
+
+/* partners */
+.partners{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:center;align-items:center;margin-top:1rem}
+.partner{display:flex;flex-direction:column;align-items:center;gap:.7rem;min-width:150px}
+.partner .box{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;overflow:hidden;
+  background:rgba(255,255,255,.05);border:1px solid rgba(217,164,65,.28)}
+.partner .box img{width:100%;height:100%;object-fit:contain;padding:.6rem}
+.partner .box b{font-family:Cinzel,serif;font-size:1.4rem;color:var(--gold-2)}
+.partner small{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:center}
+
+/* contact */
+.contact{text-align:center}
+.contact .links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+
+footer{border-top:1px solid rgba(217,164,65,.18);padding:2.4rem 0;text-align:center}
+footer p{font-size:.78rem;color:var(--muted);margin:.3rem 0}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .scene::before,.scroll{animation:none}
+}
+
+@media (max-width:860px){
+  .burger{display:block}
+  nav{position:fixed;inset:0 0 auto 0;top:0;padding:5rem 1.5rem 2rem;flex-direction:column;gap:1.4rem;
+    background:rgba(8,13,30,.97);backdrop-filter:blur(16px);transform:translateY(-110%);transition:transform .4s;z-index:-1}
+  nav.open{transform:none}
+  nav a{font-size:1rem}
+  .langs{margin-inline-start:.6rem}
+}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <a class="brand" href="#top">
+    <span class="mark"><img src="assets/logo.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'𓂀',style:'display:grid;place-items:center;height:100%;color:#d9a441;font-size:1.5rem'}))"></span>
+    <span>
+      <b data-i18n="brand">Odyssée Égypte</b>
+      <span data-i18n="brandSub">au Canada</span>
+    </span>
+  </a>
+  <nav id="nav">
+    <a href="#about" data-i18n="navAbout">À propos</a>
+    <a href="#experience" data-i18n="navExp">Le voyage</a>
+    <a href="#program" data-i18n="navProg">Programmation</a>
+    <a href="#gallery" data-i18n="navGal">Galerie</a>
+    <a href="#contact" data-i18n="navContact">Contact</a>
+  </nav>
+  <div class="langs">
+    <button data-lang="fr" aria-pressed="true">FR</button>
+    <button data-lang="ar" aria-pressed="false">ع</button>
+    <button data-lang="en" aria-pressed="false">EN</button>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="hero" id="top">
+  <div class="bg">
+    <div class="scene"></div>
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" hidden>
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="veil"></div>
+  <div class="inner">
+    <div class="seal"><img src="assets/logo.png" alt="Odyssée Égypte au Canada" onerror="this.closest('.seal').remove()"></div>
+    <p class="eyebrow" data-i18n="heroEyebrow">Mini Festival — Canada</p>
+    <h1 data-i18n="heroTitle">Égypte au-delà du Temps</h1>
+    <p class="sub" data-i18n="heroSub">Un voyage culturel à travers l'histoire, l'art et les traditions.</p>
+    <div class="cta">
+      <a class="btn solid" href="#program" data-i18n="ctaProgram">Découvrir le festival</a>
+      <a class="btn ghost" href="https://www.facebook.com/people/Odyssee-egypte-in-Canada/61592297720462/" target="_blank" rel="noopener" data-i18n="ctaFollow">Nous suivre</a>
+    </div>
+  </div>
+  <a class="scroll" href="#about" aria-label="Scroll">⌄</a>
+</div>
+
+<!-- ================= À PROPOS ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow" data-i18n="aboutEyebrow">Qui sommes-nous</p>
+      <h2 data-i18n="aboutTitle">Une odyssée égyptienne au cœur du Canada</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="prose rv">
+      <p class="lead" data-i18n="aboutP1">Odyssée Égypte au Canada est un mini-festival entièrement dédié à la rencontre entre la civilisation égyptienne et le public canadien. Le temps d'un événement, l'Égypte — de l'ère des pharaons à la création contemporaine — s'installe au Canada.</p>
+      <p data-i18n="aboutP2">Pensé comme un voyage plutôt que comme une exposition, le festival invite les visiteurs à traverser cinq millénaires en quelques heures : la majesté des temples, la finesse de la calligraphie, les parfums d'une cuisine millénaire, la ferveur d'une musique qui n'a jamais cessé d'évoluer.</p>
+      <p data-i18n="aboutP3">Notre ambition est simple : faire de la culture un pont. Un lieu où les familles égyptiennes du Canada retrouvent leur mémoire, et où le public canadien découvre une Égypte vivante, généreuse et bien plus vaste que les images de cartes postales.</p>
+    </div>
+    <div class="stats rv">
+      <div class="stat"><b>5000</b><span data-i18n="stat1">ans d'histoire</span></div>
+      <div class="stat"><b>1</b><span data-i18n="stat2">Égypte, mille visages</span></div>
+      <div class="stat"><b>∞</b><span data-i18n="stat3">ponts entre les cultures</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CITATION ================= -->
+<div class="strip">
+  <div class="bg"><img src="assets/hero-poster.jpg" alt="" onerror="this.remove()"></div>
+  <div class="veil"></div>
+  <div class="inner wrap">
+    <blockquote data-i18n="quote">« L'Égypte n'est pas un souvenir : c'est un pays qui continue de raconter. »</blockquote>
+    <cite data-i18n="quoteBy">Odyssée Égypte au Canada</cite>
+  </div>
+</div>
+
+<!-- ================= LE VOYAGE ================= -->
+<section id="experience" class="alt">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow" data-i18n="expEyebrow">L'expérience</p>
+      <h2 data-i18n="expTitle">Le voyage en quatre escales</h2>
+      <p data-i18n="expIntro">Chaque escale est une porte d'entrée dans la culture égyptienne — à voir, à écouter, à goûter, à pratiquer.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="grid">
+      <article class="card rv"><div class="ico">𓉔</div><h3 data-i18n="exp1t">Histoire &amp; patrimoine</h3><p data-i18n="exp1p">Des pharaons à l'Égypte copte et islamique : reconstitutions, objets, récits et rencontres pour comprendre une civilisation qui n'a jamais cessé de se réinventer.</p></article>
+      <article class="card rv"><div class="ico">🎨</div><h3 data-i18n="exp2t">Art &amp; artisanat</h3><p data-i18n="exp2p">Calligraphie arabe, papyrus, orfèvrerie, tissage et céramique. Des artisans démontrent leur geste et transmettent, en direct, un savoir-faire millénaire.</p></article>
+      <article class="card rv"><div class="ico">🎶</div><h3 data-i18n="exp3t">Musique &amp; danse</h3><p data-i18n="exp3p">Oud, qanûn et percussions, chants du Saïd, danse folklorique et créations contemporaines : la scène du festival bat au rythme du Nil.</p></article>
+      <article class="card rv"><div class="ico">🍽️</div><h3 data-i18n="exp4t">Saveurs d'Égypte</h3><p data-i18n="exp4p">Koshari, molokheya, pâtisseries au miel et thé à la menthe. La gastronomie comme première langue commune entre les cultures.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRAMMATION ================= -->
+<section id="program">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow" data-i18n="progEyebrow">Programmation</p>
+      <h2 data-i18n="progTitle">Ce qui vous attend</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="grid">
+      <article class="card rv"><div class="ico">🎭</div><h3 data-i18n="p1t">Spectacles</h3><p data-i18n="p1p">Concerts, danse et performances scéniques réunissant artistes égyptiens et talents de la diaspora canadienne.</p></article>
+      <article class="card rv"><div class="ico">🖼️</div><h3 data-i18n="p2t">Expositions</h3><p data-i18n="p2p">Un parcours visuel à travers l'art, la photographie et le patrimoine égyptiens, conçu pour se visiter en famille.</p></article>
+      <article class="card rv"><div class="ico">✍️</div><h3 data-i18n="p3t">Ateliers</h3><p data-i18n="p3p">Calligraphie, initiation à la danse, cuisine et contes pour enfants : des ateliers gratuits, animés par des passionnés.</p></article>
+      <article class="card rv"><div class="ico">🛍️</div><h3 data-i18n="p4t">Souk</h3><p data-i18n="p4p">Un marché d'artisanat, d'épices et de créateurs, où chaque objet vient avec l'histoire de celui qui l'a fait.</p></article>
+      <article class="card rv"><div class="ico">🎬</div><h3 data-i18n="p5t">Cinéma &amp; rencontres</h3><p data-i18n="p5p">Projections, tables rondes et discussions ouvertes sur l'Égypte d'aujourd'hui et sa création contemporaine.</p></article>
+      <article class="card rv"><div class="ico">👨‍👩‍👧</div><h3 data-i18n="p6t">Espace familles</h3><p data-i18n="p6p">Jeux, animations et activités pensés pour les enfants — parce qu'une culture se transmet d'abord en s'amusant.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERIE ================= -->
+<section id="gallery" class="alt">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow" data-i18n="galEyebrow">Galerie</p>
+      <h2 data-i18n="galTitle">Images du festival</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="gal rv" id="gal">
+      <figure class="tile"><div class="ph">𓂀</div><img src="assets/gallery/1.jpg" alt="" onerror="this.remove()"></figure>
+      <figure class="tile"><div class="ph">𓊨</div><img src="assets/gallery/2.jpg" alt="" onerror="this.remove()"></figure>
+      <figure class="tile"><div class="ph">𓋹</div><img src="assets/gallery/3.jpg" alt="" onerror="this.remove()"></figure>
+      <figure class="tile"><div class="ph">𓆣</div><img src="assets/gallery/4.jpg" alt="" onerror="this.remove()"></figure>
+      <figure class="tile"><div class="ph">𓁿</div><img src="assets/gallery/5.jpg" alt="" onerror="this.remove()"></figure>
+      <figure class="tile"><div class="ph">𓉔</div><img src="assets/gallery/6.jpg" alt="" onerror="this.remove()"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARTENAIRES ================= -->
+<section id="partners">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow" data-i18n="parEyebrow">Ils rendent le festival possible</p>
+      <h2 data-i18n="parTitle">Partenaires</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="partners rv">
+      <div class="partner">
+        <div class="box"><img src="assets/partners/acmc.png" alt="ACMC" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'ACMC'}))"></div>
+        <small data-i18n="par1">Association non lucrative<br>Mélodie des Cultures</small>
+      </div>
+      <div class="partner">
+        <div class="box"><img src="assets/partners/mascan.png" alt="MASCAN" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'MAS'}))"></div>
+        <small data-i18n="par2">MASCAN</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="alt contact">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow" data-i18n="ctEyebrow">Rejoignez l'aventure</p>
+      <h2 data-i18n="ctTitle">Contact &amp; partenariats</h2>
+      <p data-i18n="ctP">Artistes, artisans, bénévoles, commanditaires ou simples curieux : écrivez-nous, la programmation se construit avec vous.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="links rv">
+      <a class="btn solid" href="https://www.facebook.com/people/Odyssee-egypte-in-Canada/61592297720462/" target="_blank" rel="noopener" data-i18n="ctFb">Page Facebook</a>
+      <a class="btn ghost" href="mailto:odysseeegypte@gmail.com" data-i18n="ctMail">Nous écrire</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p data-i18n="ftTag">Odyssée Égypte au Canada — Égypte au-delà du Temps</p>
+    <p>© <span id="yr"></span> · <span data-i18n="ftRights">Tous droits réservés</span></p>
+  </div>
+</footer>
+
+<script>
+/* ---------------- i18n ---------------- */
+const I18N = {
+  fr:{_dir:"ltr",_title:"Odyssée Égypte au Canada — Égypte au-delà du Temps"},
+  ar:{
+    _dir:"rtl",_title:"أوديسة مصر في كندا — مصر عبر الزمن",
+    brand:"أوديسة مصر", brandSub:"في كندا",
+    navAbout:"من نحن", navExp:"الرحلة", navProg:"البرنامج", navGal:"معرض الصور", navContact:"اتصل بنا",
+    heroEyebrow:"مهرجان مصغّر — كندا",
+    heroTitle:"مصر عبر الزمن",
+    heroSub:"رحلة ثقافية عبر التاريخ والفن والتقاليد.",
+    ctaProgram:"اكتشف المهرجان", ctaFollow:"تابعنا",
+    aboutEyebrow:"من نحن",
+    aboutTitle:"أوديسة مصرية في قلب كندا",
+    aboutP1:"«أوديسة مصر في كندا» مهرجان مصغّر مكرّس بالكامل للقاء بين الحضارة المصرية والجمهور الكندي. على مدى أيام المهرجان تحلّ مصر — من عصر الفراعنة إلى الإبداع المعاصر — ضيفةً على كندا.",
+    aboutP2:"صُمّم المهرجان ليكون رحلة لا معرضاً: يعبر الزائر خمسة آلاف عام في ساعات قليلة، بين مهابة المعابد ودقّة الخط العربي وعبق مطبخ عريق وحرارة موسيقى لم تتوقف يوماً عن التجدّد.",
+    aboutP3:"هدفنا بسيط: أن تكون الثقافة جسراً. مكان تستعيد فيه العائلات المصرية في كندا ذاكرتها، ويكتشف فيه الجمهور الكندي مصر حيّة كريمة أوسع بكثير من صور البطاقات البريدية.",
+    stat1:"عام من التاريخ", stat2:"مصر بألف وجه", stat3:"جسور بين الثقافات",
+    quote:"«مصر ليست ذكرى، بل بلد ما زال يروي حكايته.»", quoteBy:"أوديسة مصر في كندا",
+    expEyebrow:"التجربة", expTitle:"الرحلة في أربع محطات",
+    expIntro:"كل محطة باب إلى الثقافة المصرية — تُشاهَد وتُسمَع وتُذاق وتُمارَس.",
+    exp1t:"التاريخ والتراث", exp1p:"من الفراعنة إلى مصر القبطية والإسلامية: مجسّمات ومقتنيات وحكايات ولقاءات لفهم حضارة لم تكفّ عن إعادة ابتكار نفسها.",
+    exp2t:"الفن والحرف", exp2p:"الخط العربي والبردي والحلي والنسيج والخزف. حرفيّون يعرضون مهارتهم مباشرة وينقلون خبرة عمرها آلاف السنين.",
+    exp3t:"الموسيقى والرقص", exp3p:"عود وقانون وإيقاعات، أغاني الصعيد، رقص فولكلوري وأعمال معاصرة: مسرح المهرجان ينبض على إيقاع النيل.",
+    exp4t:"نكهات مصر", exp4p:"كشري وملوخية وحلويات بالعسل وشاي بالنعناع. المطبخ أول لغة مشتركة بين الثقافات.",
+    progEyebrow:"البرنامج", progTitle:"ما ينتظركم",
+    p1t:"عروض", p1p:"حفلات موسيقية ورقص وعروض مسرحية تجمع فنانين من مصر ومواهب من الجالية في كندا.",
+    p2t:"معارض", p2p:"مسار بصري في الفن والتصوير والتراث المصري، مصمّم لزيارة عائلية.",
+    p3t:"ورش عمل", p3p:"خط عربي، تعلّم الرقص، طبخ وحكايات للأطفال: ورش مجانية يقدّمها محبّون للفن.",
+    p4t:"السوق", p4p:"سوق للحرف والتوابل والمصمّمين، حيث لكل قطعة حكاية صانعها.",
+    p5t:"سينما ولقاءات", p5p:"عروض أفلام وطاولات مستديرة ونقاشات مفتوحة حول مصر اليوم وإبداعها المعاصر.",
+    p6t:"ركن العائلات", p6p:"ألعاب وأنشطة للأطفال — لأن الثقافة تُورَّث أولاً عبر المتعة.",
+    galEyebrow:"معرض الصور", galTitle:"صور من المهرجان",
+    parEyebrow:"من يجعلون المهرجان ممكناً", parTitle:"الشركاء",
+    par1:"جمعية غير ربحية<br>لحن الثقافات", par2:"ماسكان",
+    ctEyebrow:"انضم إلى المغامرة", ctTitle:"التواصل والشراكات",
+    ctP:"فنانون وحرفيون ومتطوعون ورعاة وكل فضولي: راسلونا، فالبرنامج يُبنى معكم.",
+    ctFb:"صفحة فيسبوك", ctMail:"راسلنا",
+    ftTag:"أوديسة مصر في كندا — مصر عبر الزمن", ftRights:"جميع الحقوق محفوظة"
+  },
+  en:{
+    _dir:"ltr",_title:"Odyssey Egypt in Canada — Egypt Beyond Time",
+    brand:"Odyssey Egypt", brandSub:"in Canada",
+    navAbout:"About", navExp:"The Journey", navProg:"Programme", navGal:"Gallery", navContact:"Contact",
+    heroEyebrow:"Mini Festival — Canada",
+    heroTitle:"Egypt Beyond Time",
+    heroSub:"A cultural journey through history, art and tradition.",
+    ctaProgram:"Discover the festival", ctaFollow:"Follow us",
+    aboutEyebrow:"Who we are",
+    aboutTitle:"An Egyptian odyssey in the heart of Canada",
+    aboutP1:"Odyssey Egypt in Canada is a mini-festival devoted entirely to the meeting of Egyptian civilisation and Canadian audiences. For the length of the event, Egypt — from the age of the pharaohs to contemporary creation — comes to Canada.",
+    aboutP2:"Conceived as a journey rather than an exhibition, the festival invites visitors to cross five millennia in a few hours: the grandeur of the temples, the delicacy of calligraphy, the scent of a thousand-year-old cuisine, the fervour of a music that has never stopped evolving.",
+    aboutP3:"Our ambition is simple: to make culture a bridge. A place where Egyptian families in Canada find their memory again, and where Canadian audiences discover a living, generous Egypt — far larger than the postcard.",
+    stat1:"years of history", stat2:"Egypt, a thousand faces", stat3:"bridges between cultures",
+    quote:"“Egypt is not a memory: it is a country still telling its story.”", quoteBy:"Odyssey Egypt in Canada",
+    expEyebrow:"The experience", expTitle:"The journey in four stops",
+    expIntro:"Each stop is a doorway into Egyptian culture — to see, to hear, to taste, to try.",
+    exp1t:"History &amp; heritage", exp1p:"From the pharaohs to Coptic and Islamic Egypt: reconstructions, objects, stories and encounters that reveal a civilisation forever reinventing itself.",
+    exp2t:"Art &amp; craft", exp2p:"Arabic calligraphy, papyrus, goldsmithing, weaving and ceramics. Artisans demonstrate their craft live and pass on a millennial know-how.",
+    exp3t:"Music &amp; dance", exp3p:"Oud, qanun and percussion, songs of the Saïd, folk dance and contemporary creation: the festival stage beats to the rhythm of the Nile.",
+    exp4t:"Flavours of Egypt", exp4p:"Koshari, molokheya, honey pastries and mint tea. Food as the first language shared between cultures.",
+    progEyebrow:"Programme", progTitle:"What awaits you",
+    p1t:"Performances", p1p:"Concerts, dance and stage performances bringing together Egyptian artists and talents from the Canadian diaspora.",
+    p2t:"Exhibitions", p2p:"A visual path through Egyptian art, photography and heritage, designed to be enjoyed as a family.",
+    p3t:"Workshops", p3p:"Calligraphy, dance initiation, cooking and children's storytelling: free workshops led by enthusiasts.",
+    p4t:"The souk", p4p:"A market of crafts, spices and makers, where every object comes with the story of the hands that made it.",
+    p5t:"Film &amp; talks", p5p:"Screenings, round tables and open discussions on Egypt today and its contemporary creation.",
+    p6t:"Family space", p6p:"Games and activities designed for children — because a culture is passed on first through joy.",
+    galEyebrow:"Gallery", galTitle:"Images from the festival",
+    parEyebrow:"They make the festival possible", parTitle:"Partners",
+    par1:"Non-profit association<br>Melody of Cultures", par2:"MASCAN",
+    ctEyebrow:"Join the adventure", ctTitle:"Contact &amp; partnerships",
+    ctP:"Artists, artisans, volunteers, sponsors or simply curious: write to us — the programme is built with you.",
+    ctFb:"Facebook page", ctMail:"Email us",
+    ftTag:"Odyssey Egypt in Canada — Egypt Beyond Time", ftRights:"All rights reserved"
+  }
+};
+
+/* French is the source language: capture it from the DOM itself. */
+(function(){
+  const fr = I18N.fr;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{ fr[el.dataset.i18n] = el.innerHTML; });
+})();
+
+const html = document.documentElement;
+function setLang(lang){
+  const dict = I18N[lang]; if(!dict) return;
+  html.lang = lang;
+  html.dir = dict._dir;
+  document.title = dict._title;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const v = dict[el.dataset.i18n];
+    if(v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll(".langs button").forEach(b=>{
+    b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+  });
+  try{ localStorage.setItem("odyssee-lang", lang); }catch(e){}
+}
+document.querySelectorAll(".langs button").forEach(b=>{
+  b.addEventListener("click", ()=>setLang(b.dataset.lang));
+});
+try{
+  const saved = localStorage.getItem("odyssee-lang");
+  if(saved && saved !== "fr") setLang(saved);
+}catch(e){}
+
+/* ---------------- hero video: only show it if the file exists ---------------- */
+(function(){
+  const v = document.getElementById("heroVideo");
+  if(!v) return;
+  const show = ()=>{ v.hidden = false; v.play().catch(()=>{}); };
+  v.addEventListener("loadeddata", show);
+  v.addEventListener("error", ()=>v.remove(), true);
+  /* a poster alone is enough to be worth showing */
+  const probe = new Image();
+  probe.onload = ()=>{ v.hidden = false; };
+  probe.src = "assets/hero-poster.jpg";
+})();
+
+/* ---------------- gallery placeholders ---------------- */
+document.querySelectorAll("#gal .tile img").forEach(img=>{
+  const ph = img.parentNode.querySelector(".ph");
+  const ok = ()=>{ if(ph) ph.remove(); };
+  img.addEventListener("load", ok);
+  if(img.complete && img.naturalWidth > 0) ok();
+});
+
+/* ---------------- header, menu, reveal ---------------- */
+const hdr = document.getElementById("hdr");
+const onScroll = ()=>hdr.classList.toggle("solid", window.scrollY > 60);
+onScroll(); addEventListener("scroll", onScroll, {passive:true});
+
+const nav = document.getElementById("nav");
+document.getElementById("burger").addEventListener("click", ()=>nav.classList.toggle("open"));
+nav.addEventListener("click", e=>{ if(e.target.tagName === "A") nav.classList.remove("open"); });
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+}, {threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
